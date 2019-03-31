@@ -1,38 +1,42 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component, useState, useEffect, useContext } from 'react';
 import { resMsg } from 'rober19-config';
-import http from '../../services/http.service'
-import config from '../../config/global.config'
+import http from '../../services/http.service';
+import config from '../../config/global.config';
+import { AppContext } from '../../AppContext';
 
 export default function MembersList() {
+  //const [members, setMembers] = useState<[]>([]);
 
-  const [members, setMembers] = useState<[]>([]);
 
-     useEffect(() => {    
-      getMembers();      
-    }, []);
-   
+  const { state, dispatch } : any = useContext(AppContext);  
+
+  useEffect(() => {   
+    getMembers();
+    console.table(state)
+  });
 
   function getMembers() {
-   getAllMembers();
-   console.log(1)
+    getAllMembers();
+    console.log(1);
     //setMembers(db);
   }
-  
 
   async function getAllMembers() {
-    let res = await http.http_get(`${config.app_config.backend_heroku_link}/member`)
-    console.log(res)
-    setMembers(res);
+    let res : any[] = await http.http_get(`${config.app_config.backend_heroku_link}/members`);
+    console.log(res);
+    if (res.length != state.arr.length) {
+      dispatch({
+        type: "CHANGE_NAME",
+        name: 'name',
+        arr: res        
+      });
+    }
   }
-  function showm() {
+ 
 
-    //console.log(db)
-  }
-
-  function deleteMember() {
-    // db.splice(2, 2);
-    // console.table(db);
-    // getMembers();
+  async function deleteMember(id: string) {
+    await http.http_delete(`${config.app_config.backend_heroku_link}/member?id=${id}`);
+    getAllMembers();
   }
 
   return (
@@ -48,13 +52,13 @@ export default function MembersList() {
             </tr>
           </thead>
           <tbody>
-            {members.map((item) => {
-              let { id, nombre } = item as any;
+            {state.arr.map((item: any) => {
+              let { id, nombre, rama, rama_id } = item as any;
               return (
                 <tr key={id}>
                   <td>{nombre}</td>
-                  <td>{5}</td>
-                  <td>{1}</td>
+                  <td>{rama}</td>
+                  <td>{rama_id}</td>
                   <td>
                     <div className="container">
                       <div className="col s12 m6">
@@ -62,7 +66,7 @@ export default function MembersList() {
                           className="btn cyan waves-effect waves-light"
                           type="submit"
                           name="action"
-                          onClick={(e) => showm()}
+                          onClick={e => getAllMembers()}
                         >
                           {resMsg.edit}
                           <i className="material-icons right">short_text</i>
@@ -73,7 +77,7 @@ export default function MembersList() {
                           className="btn orange waves-effect waves-light"
                           type="submit"
                           name="action"
-                          onClick={async (e) => await getAllMembers()}
+                          onClick={async e => deleteMember(id)}
                         >
                           {resMsg.delete_1}
                           <i className="material-icons right">delete_sweep</i>
@@ -82,7 +86,7 @@ export default function MembersList() {
                     </div>
                   </td>
                 </tr>
-              )
+              );
             })}
           </tbody>
         </table>
@@ -90,3 +94,4 @@ export default function MembersList() {
     </div>
   );
 }
+

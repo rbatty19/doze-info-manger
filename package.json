@@ -8,10 +8,10 @@
     "@types/node": "11.12.0",
     "@types/react": "16.8.10",
     "@types/react-dom": "16.8.3",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-scripts": "2.1.8",
-    "rober19-config": "^2.4.41",
+    "react": "16.7.0-alpha.0",
+    "react-dom": "16.7.0-alpha.0",
+    "react-scripts": "2.1.2",
+    "rober19-config": "^2.4.42",
     "typescript": "3.3.4000"
   },
   "devDependencies": {

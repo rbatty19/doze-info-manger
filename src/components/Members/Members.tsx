@@ -1,27 +1,45 @@
-import React, { Component } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { resMsg } from 'rober19-config';
-import http from '../../services/http.service'
+import http from '../../services/http.service';
+import config from '../../config/global.config';
+import { AppContext } from '../../AppContext';
 
-export default function MembersList() {
+export default function Members() {
 
-  function NewMember(e: React.FormEvent<HTMLFormElement>) {
+  const { state, dispatch } : any = useContext(AppContext);
+
+  useEffect(() => {
+    console.log(`Component One`);
+  })
+
+  async function NewMember(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     const { last_name, first_name, cc_id, rama_id, rama, semestre, email }: any = e.target;
-    
+
     const data = {
       nombre: first_name.value,
       apellido: last_name.value,
       rama_id: rama_id.value,
       rama: rama.value,
-      cedula: cc_id.value,
+      id_ciudadania: cc_id.value,
       semestre: semestre.value,
       email: email.value,
     };
-    console.table(data);
-  }
 
- 
+    //console.log(data)    
+    let res = await http.http_post(`${config.app_config.backend_heroku_link}/member`, data);
+   // console.log(res)
+
+    if (res.status == 200) {
+     // console.log('es 200')
+      dispatch({
+        type: "CHANGE_NAME",
+        name: 'name',
+        arr: state.arr        
+      });
+    }
+  }
 
   function semestres() {
     let select_ = [];

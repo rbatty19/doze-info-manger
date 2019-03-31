@@ -1,17 +1,16 @@
 class HttpService {
-
   async http_get(url = '', headers = new Headers()) {
     try {
       const response = await fetch(url, {
         method: 'GET',
         headers: headers,
         mode: 'cors',
-        cache: 'default',    
-        credentials: 'same-origin'
-      })
-      return await response.json();  
+        cache: 'default',
+        credentials: 'same-origin',
+      });
+      return await response.json();
     } catch (error) {
-      console.error(error)
+      console.error(error);
       return {};
     }
   }
@@ -34,13 +33,18 @@ class HttpService {
 
   async http_delete(url = '', body = {}, headers = new Headers()) {
     headers.append('Content-Type', 'application/json');
-    const response = await fetch(url, {
-      method: 'delete',
-      //mode: 'cors', // no-cors, cors, *same-origin
-      headers: headers,
-      body: JSON.stringify(body),
-    });
-    return await response.json(); // parses JSON response into native Javascript objects
+    try {
+      const response = await fetch(url, {
+        method: 'delete',
+        //mode: 'cors', // no-cors, cors, *same-origin
+        headers: headers,
+        body: JSON.stringify(body),
+      });
+      return await response.json(); // parses JSON response into native Javascript objects
+    } catch (error) {
+      console.error(error);
+      return {};
+    }
   }
 
   async http_put(url = '', body = {}, headers = new Headers()) {
@@ -53,7 +57,6 @@ class HttpService {
     });
     return await response.json(); // parses JSON response into native Javascript objects
   }
-
 }
 
-export default new HttpService()
+export default new HttpService();
