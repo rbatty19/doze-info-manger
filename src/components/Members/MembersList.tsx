@@ -1,6 +1,7 @@
 import React, { Component, useState, useEffect } from 'react';
 import { resMsg } from 'rober19-config';
 import http from '../../services/http.service'
+import config from '../../config/global.config'
 
 export default function MembersList() {
 
@@ -19,12 +20,12 @@ export default function MembersList() {
   
 
   async function getAllMembers() {
-    let res = await http.http_get(`https://api.github.com/users/rober19/repos?per_page=200`)
+    let res = await http.http_get(`${config.app_config.backend_heroku_link}/member`)
     console.log(res)
     setMembers(res);
   }
-
   function showm() {
+
     //console.log(db)
   }
 
@@ -48,12 +49,12 @@ export default function MembersList() {
           </thead>
           <tbody>
             {members.map((item) => {
-              let { node_id, name, owner, default_branch } = item as any;
+              let { id, nombre } = item as any;
               return (
-                <tr key={node_id}>
-                  <td>{name}</td>
-                  <td>{owner.login}</td>
-                  <td>{default_branch}</td>
+                <tr key={id}>
+                  <td>{nombre}</td>
+                  <td>{5}</td>
+                  <td>{1}</td>
                   <td>
                     <div className="container">
                       <div className="col s12 m6">

@@ -1,17 +1,19 @@
 class HttpService {
 
-  http_get(url = '', headers = new Headers({
-    'Content-Type': 'application/json',
-  })) {
-    return fetch(url, {
-      method: 'GET',
-      headers: headers,
-      mode: 'cors',
-      cache: 'default',    
-      credentials: 'same-origin'
-    }).then(res => res.json());
-    
-
+  async http_get(url = '', headers = new Headers()) {
+    try {
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: headers,
+        mode: 'cors',
+        cache: 'default',    
+        credentials: 'same-origin'
+      })
+      return await response.json();  
+    } catch (error) {
+      console.error(error)
+      return {};
+    }
   }
 
   async http_post(url = '', body = {}) {
