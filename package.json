@@ -4,13 +4,18 @@
   "private": true,
   "homepage": "https://rober19.github.io/reto_christianp9_frontend/",
   "dependencies": {
+    "@material-ui/core": "^3.9.3",
     "@types/jest": "24.0.11",
+    "@types/materialize-css": "^1.0.6",
     "@types/node": "11.12.0",
     "@types/react": "16.8.10",
     "@types/react-dom": "16.8.3",
+    "materialize-css": "^1.0.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-materialize": "^3.0.3",
     "react-scripts": "2.1.8",
+    "react-spinner-material": "^1.0.19",
     "rober19-config": "^2.4.41",
     "typescript": "3.3.4000"
   },

@@ -5,12 +5,11 @@ import config from '../../config/global.config';
 import { AppContext } from '../../AppContext';
 
 export default function Members() {
-
-  const { state, dispatch } : any = useContext(AppContext);
+  const { state, dispatch }: any = useContext(AppContext);
 
   useEffect(() => {
-    console.log(`Component One`);
-  })
+    //console.log(`Component One`);
+  });
 
   async function NewMember(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -26,19 +25,36 @@ export default function Members() {
       semestre: semestre.value,
       email: email.value,
     };
-
-    //console.log(data)    
+    dispatch({
+      type: 'CHANGE_NAME',
+      name: 'name',
+      arr: state.arr,
+      test: true,
+    });
+    
+    //console.log(data)
+   try {
     let res = await http.http_post(`${config.app_config.backend_heroku_link}/member`, data);
-   // console.log(res)
-
     if (res.status == 200) {
-     // console.log('es 200')
+      // console.log('es 200')
       dispatch({
-        type: "CHANGE_NAME",
+        type: 'CHANGE_NAME',
         name: 'name',
-        arr: state.arr        
+        arr: state.arr,
+        test: true,
       });
     }
+   } catch (error) {
+    dispatch({
+      type: 'CHANGE_NAME',
+      name: 'name',
+      arr: [],
+      test: true,
+    });
+   }
+    // console.log(res)
+
+    
   }
 
   function semestres() {

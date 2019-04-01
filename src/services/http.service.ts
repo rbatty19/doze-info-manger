@@ -11,7 +11,7 @@ class HttpService {
       return await response.json();
     } catch (error) {
       console.error(error);
-      return {};
+      return undefined;
     }
   }
 
@@ -43,7 +43,7 @@ class HttpService {
       return await response.json(); // parses JSON response into native Javascript objects
     } catch (error) {
       console.error(error);
-      return {};
+      return undefined;
     }
   }
 
