@@ -60,8 +60,8 @@ export default function App() {
 
       <footer className="page-footer">
         <div className="row">
-          <div className="center-align">
-            <img src="doze.png" />
+          <div className="col md12 s12 center-align">
+            <img className="responsive-img" src="doze.png" />
           </div>
         </div>
 
