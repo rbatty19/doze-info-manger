@@ -1,17 +1,17 @@
 import React, { Component, useState, useEffect, useContext } from 'react';
 import { resMsg } from 'rober19-config';
 import http from '../../services/http.service';
-import config from '../../config/global.config';
+import config, { StateContext } from '../../config/global.config';
 import { AppContext } from '../../AppContext';
 
-export default function MembersList(props: any) {
+export default function MembersList() {
   //const [members, setMembers] = useState<[]>([]);
 
   const { state, dispatch }: any = useContext(AppContext);
 
   useEffect(() => {
+    //console.table(state);
     getMembers();
-    console.table(state);
   });
 
   function getMembers() {
@@ -20,27 +20,41 @@ export default function MembersList(props: any) {
   }
 
   async function getAllMembers() {
-    let res: any[] = await http.http_get(`${config.app_config.backend_heroku_link}/members`);
+    let res: any = await http.http_get(`${config.app_config.backend_heroku_link}/members`);
+
+    if (!state.InitVoid && res) {
+      return dispatch({
+        type: 'CHANGE_NAME',
+        name: state.name,
+        arr: state.arr,
+        test: false,
+        InitVoid: true,
+      } as StateContext);
+    }
 
     if (!res) {
+      console.warn(':v');
       //peticion en caso de error para revisar conectividad cada 5 segundos
       setTimeout(() => {
         dispatch({
           type: 'CHANGE_NAME',
-          name: 'name',
-          arr: [],
+          name: state.name,
+          arr: state.arr,
           test: true,
-        });
+          InitVoid: state.InitVoid,
+        } as StateContext);
       }, 5000);
     }
-
+    //console.log(state.arr.length)
     if (res && res.length != state.arr.length) {
-      dispatch({
+      console.log(2)
+      return dispatch({
         type: 'CHANGE_NAME',
         name: 'name',
         arr: res,
         test: false,
-      });
+        InitVoid: state.InitVoid,
+      } as StateContext);
     }
   }
 
@@ -51,18 +65,20 @@ export default function MembersList(props: any) {
         getAllMembers(); // console.log('es 200')
         dispatch({
           type: 'CHANGE_NAME',
-          name: 'name',
+          name: state.name,
           arr: state.arr,
           test: true,
-        });
+          InitVoid: state.InitVoid,
+        } as StateContext);
       }
     } catch (error) {
       dispatch({
         type: 'CHANGE_NAME',
-        name: 'name',
-        arr: [],
+        name: state.name,
+        arr: state.arr,
         test: true,
-      });
+        InitVoid: state.InitVoid,
+      } as StateContext);
     }
   }
 

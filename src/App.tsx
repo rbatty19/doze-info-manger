@@ -1,33 +1,40 @@
-import React, { useReducer, Fragment, Component } from 'react';
 import './App.css';
 import 'materialize-css/dist/css/materialize.min.css';
 import 'materialize-css/dist/js/materialize';
-
+import React, { useReducer, Fragment, Component } from 'react';
 import Members from './components/Members/Members';
 import MembersList from './components/Members/MembersList';
 import { AppContext } from './AppContext';
-
-import { Modal, Button } from 'react-materialize';
+import { StateContext } from './config/global.config';
 
 export default function App() {
-  let defaultData = {
+  let defaultData: any = {
     name: 'Juan Manuel',
     arr: [],
-    test: true
+    test: true,
+    InitVoid: false,
+    type: '',
   };
- 
+
+  const { Modal, Button } = require('react-materialize');
 
   const [state, dispatch] = useReducer((state, action) => {
     //console.log(action.type)
     switch (action.type) {
       case 'CHANGE_NAME':
-        return { ...state, name: action.name, arr: action.arr, test: action.test };
+        return {
+          ...state,
+          name: action.name,
+          arr: action.arr,
+          test: action.test,
+          InitVoid: action.InitVoid,
+        };
       default:
         return {};
     }
   }, defaultData);
 
-  const trigger = <Button>Open Modal</Button>;
+  //const trigger = <Button>Open Modal</Button>;
 
   return (
     <div>
@@ -35,18 +42,12 @@ export default function App() {
       <AppContext.Provider value={{ state, dispatch }}>
         <Fragment>
           <Members />
-          <MembersList/>
+          <MembersList />
         </Fragment>
       </AppContext.Provider>
       {true ? (
         <div>
-          <Modal
-            trigger={trigger}
-            bottomSheet
-            options={{ dismissible: false }}
-            open={state.test}
-            actions={null}
-          >
+          <Modal bottomSheet options={{ dismissible: false }} open={state.test} actions={null}>
             <div className="sk-folding-cube">
               <div className="sk-cube1 sk-cube" />
               <div className="sk-cube2 sk-cube" />
