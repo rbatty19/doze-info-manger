@@ -4,9 +4,9 @@ import http from '../../services/http.service';
 import config from '../../config/global.config';
 import { AppContext } from '../../AppContext';
 
-export default function MembersList() {
+export default function MembersList(props : any) {
   //const [members, setMembers] = useState<[]>([]);
-
+  console.log(props)
 
   const { state, dispatch } : any = useContext(AppContext);  
 
@@ -17,7 +17,6 @@ export default function MembersList() {
 
   function getMembers() {
     getAllMembers();
-    console.log(1);
     //setMembers(db);
   }
 
@@ -47,7 +46,7 @@ export default function MembersList() {
             <tr>
               <th>{resMsg.name_1}</th>
               <th>{resMsg.branch}</th>
-              <th>{resMsg.branch} ID</th>
+              <th>Doze ID</th>
               <th>-</th>
             </tr>
           </thead>
@@ -58,7 +57,7 @@ export default function MembersList() {
                 <tr key={id}>
                   <td>{nombre}</td>
                   <td>{rama}</td>
-                  <td>{rama_id}</td>
+                  <td>D{rama}-{rama_id}</td>
                   <td>
                     <div className="container">
                       <div className="col s12 m6">

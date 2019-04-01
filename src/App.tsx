@@ -1,4 +1,4 @@
-import React, { useReducer, Fragment, Component } from 'react';
+import React, { useReducer, Fragment } from 'react';
 import './App.css';
 import Members from './components/Members/Members';
 import MembersList from './components/Members/MembersList';
@@ -25,7 +25,7 @@ export default function App() {
       <AppContext.Provider value={{ state, dispatch }}>
         <Fragment>
           <Members />
-          <MembersList />
+          <MembersList c="2"/>
         </Fragment>
       </AppContext.Provider>
       <footer className="page-footer">
