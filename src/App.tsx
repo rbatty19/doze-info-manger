@@ -1,22 +1,21 @@
 import './App.css';
 import 'materialize-css/dist/css/materialize.min.css';
 import 'materialize-css/dist/js/materialize';
-import React, { useReducer, Fragment, Component } from 'react';
+import React, { useReducer, Fragment } from 'react';
 import Members from './components/Members/Members';
 import MembersList from './components/Members/MembersList';
 import { AppContext } from './AppContext';
 import { StateContext } from './config/global.config';
 
 export default function App() {
-  let defaultData: any = {
-    name: 'Juan Manuel',
+  let defaultData: StateContext = {
     arr: [],
-    test: true,
+    App_Loader: true,
     InitVoid: false,
     type: '',
   };
 
-  const { Modal, Button } = require('react-materialize');
+  const { Modal } = require('react-materialize');
 
   const [state, dispatch] = useReducer((state, action) => {
     //console.log(action.type)
@@ -24,9 +23,8 @@ export default function App() {
       case 'CHANGE_NAME':
         return {
           ...state,
-          name: action.name,
           arr: action.arr,
-          test: action.test,
+          App_Loader: action.App_Loader,
           InitVoid: action.InitVoid,
         };
       default:
@@ -47,7 +45,12 @@ export default function App() {
       </AppContext.Provider>
       {true ? (
         <div>
-          <Modal bottomSheet options={{ dismissible: false }} open={state.test} actions={null}>
+          <Modal
+            bottomSheet
+            options={{ dismissible: false }}
+            open={state.App_Loader}
+            actions={null}
+          >
             <div className="sk-folding-cube">
               <div className="sk-cube1 sk-cube" />
               <div className="sk-cube2 sk-cube" />
@@ -61,7 +64,7 @@ export default function App() {
       <footer className="page-footer">
         <div className="row">
           <div className="col md12 s12 center-align">
-            <img className="responsive-img" src="doze.png" />
+            <img className="responsive-img" src="assets/img/doze.png" />
           </div>
         </div>
 

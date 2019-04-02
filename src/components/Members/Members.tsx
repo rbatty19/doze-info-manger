@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { resMsg } from 'rober19-config';
 import http from '../../services/http.service';
-import config from '../../config/global.config';
+import config, { StateContext } from '../../config/global.config';
 import { AppContext } from '../../AppContext';
 
 export default function Members() {
@@ -10,6 +10,15 @@ export default function Members() {
   useEffect(() => {
     //console.log(`Component One`);
   });
+
+  function context_({ InitVoid, arr, App_Loader, type }: StateContext) {
+    return dispatch({
+      InitVoid: InitVoid || state.InitVoid,
+      arr: arr || state.arr,
+      App_Loader: App_Loader != undefined ? App_Loader : state.App_Loader,
+      type: type || state.type,
+    } as StateContext);
+  }
 
   async function NewMember(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -25,36 +34,17 @@ export default function Members() {
       semestre: semestre.value,
       email: email.value,
     };
-    dispatch({
-      type: 'CHANGE_NAME',
-      name: 'name',
-      arr: state.arr,
-      test: true,
-    });
-    
-    //console.log(data)
-   try {
-    let res = await http.http_post(`${config.app_config.backend_heroku_link}/member`, data);
-    if (res.status == 200) {
-      // console.log('es 200')
-      dispatch({
-        type: 'CHANGE_NAME',
-        name: 'name',
-        arr: state.arr,
-        test: true,
-      });
-    }
-   } catch (error) {
-    dispatch({
-      type: 'CHANGE_NAME',
-      name: 'name',
-      arr: [],
-      test: true,
-    });
-   }
-    // console.log(res)
 
-    
+    try {
+      let res = await http.http_post(`${config.app_config.backend_heroku_link}/member`, data);
+      if (res.status == 200) {
+        // console.log('es 200')
+        context_({ type: 'CHANGE_NAME', App_Loader: true });
+      }
+    } catch (error) {
+      context_({ type: 'CHANGE_NAME', App_Loader: true });
+    }
+    // console.log(res)
   }
 
   function semestres() {
@@ -76,7 +66,7 @@ export default function Members() {
       <div className="row">
         <form className="col s12" name="form" onSubmit={e => NewMember(e)}>
           <div className="row">
-            <div className="input-field col s6">
+            <div className="input-field col s12 m6">
               <input
                 placeholder="Jack"
                 id="first_name"
@@ -87,7 +77,7 @@ export default function Members() {
               />
               <label>{resMsg.name_1}</label>
             </div>
-            <div className="input-field col s6">
+            <div className="input-field col s12 m6">
               <input
                 id="last_name"
                 name="last_name"
@@ -112,7 +102,7 @@ export default function Members() {
               />
               <label>{resMsg.cc_col_id.toUpperCase()}</label>
             </div>
-            <div className="input-field col s6">
+            <div className="input-field col s12 m6">
               <input
                 id="rama_id"
                 name="rama_id"
@@ -126,7 +116,7 @@ export default function Members() {
           </div>
 
           <div className="row">
-            <div className="col s6">
+            <div className="col s12 m6">
               <select id="semestre" className="browser-default" defaultValue="" required>
                 <option value="" disabled>
                   {resMsg.ChooseOneOpc}
@@ -137,7 +127,7 @@ export default function Members() {
               </select>
               <label>Semestre</label>
             </div>
-            <div className="col s6">
+            <div className="col s12 m6">
               <select id="rama" className="browser-default" defaultValue="" required>
                 <option value="" disabled>
                   {resMsg.ChooseOneOpc}

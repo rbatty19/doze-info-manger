@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { resMsg } from 'rober19-config';
+import { useContext } from 'react';
+import { AppContext } from '../AppContext';
 
 class Config {
   public app_config = {
@@ -10,9 +10,10 @@ class Config {
 export default new Config();
 
 export interface StateContext {
-  type: any;
-  name: any;
-  arr: any;
-  test: any;
-  InitVoid: any;  
+  type?: any;
+  arr?: any;
+  App_Loader?: boolean;
+  InitVoid?: any;  
 }
+
+
