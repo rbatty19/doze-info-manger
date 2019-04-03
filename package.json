@@ -2,7 +2,7 @@
   "name": "react_src",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://rober19.github.io/reto_christianp9_frontend/",
+  "homepage": "https://rober19.github.io/doze-info-manger/",
   "dependencies": {
     "materialize-css": "^1.0.0",
     "react": "^16.8.6",
