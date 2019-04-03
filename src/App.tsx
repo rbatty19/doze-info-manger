@@ -12,6 +12,7 @@ export default function App() {
     arr: [],
     App_Loader: true,
     InitVoid: false,
+    AppChange: false,
     type: '',
   };
 
@@ -26,6 +27,7 @@ export default function App() {
           arr: action.arr,
           App_Loader: action.App_Loader,
           InitVoid: action.InitVoid,
+          AppChange: action.AppChange
         };
       default:
         return {};

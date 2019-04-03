@@ -13,7 +13,8 @@ export interface StateContext {
   type?: any;
   arr?: any;
   App_Loader?: boolean;
-  InitVoid?: any;  
+  InitVoid?: any; 
+  AppChange?: boolean; 
 }
 
 

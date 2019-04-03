@@ -10,7 +10,7 @@
     "react-materialize": "^3.0.3",
     "react-scripts": "2.1.8",
     "react-spinner-material": "^1.0.19",
-    "rober19-config": "^2.4.41",
+    "rober19-config": "^2.4.43",
     "sweetalert2": "^8.8.0",
     "typescript": "3.3.4000"
   },

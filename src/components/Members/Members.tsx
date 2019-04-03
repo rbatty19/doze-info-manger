@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { resMsg } from 'rober19-config';
 import http from '../../services/http.service';
 import config, { StateContext } from '../../config/global.config';
+import { NewMember } from './Members.controller';
 import { AppContext } from '../../AppContext';
 
 export default function Members() {
@@ -18,33 +19,6 @@ export default function Members() {
       App_Loader: App_Loader != undefined ? App_Loader : state.App_Loader,
       type: type || state.type,
     } as StateContext);
-  }
-
-  async function NewMember(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-
-    const { last_name, first_name, cc_id, rama_id, rama, semestre, email }: any = e.target;
-
-    const data = {
-      nombre: first_name.value,
-      apellido: last_name.value,
-      rama_id: rama_id.value,
-      rama: rama.value,
-      id_ciudadania: cc_id.value,
-      semestre: semestre.value,
-      email: email.value,
-    };
-
-    try {
-      let res = await http.http_post(`${config.app_config.backend_heroku_link}/member`, data);
-      if (res.status == 200) {
-        // console.log('es 200')
-        context_({ type: 'CHANGE_NAME', App_Loader: true });
-      }
-    } catch (error) {
-      context_({ type: 'CHANGE_NAME', App_Loader: true });
-    }
-    // console.log(res)
   }
 
   function semestres() {
@@ -64,23 +38,23 @@ export default function Members() {
       <h1>Formulario</h1>
 
       <div className="row">
-        <form className="col s12" name="form" onSubmit={e => NewMember(e)}>
+        <form className="col s12" name="form" onSubmit={e => NewMember(e, state, dispatch)}>
           <div className="row">
             <div className="input-field col s12 m6">
               <input
                 placeholder="Jack"
-                id="first_name"
+                id="nombre"
                 type="text"
                 className="validate"
-                name="first_name"
+                name="nombre"
                 required
               />
               <label>{resMsg.name_1}</label>
             </div>
             <div className="input-field col s12 m6">
               <input
-                id="last_name"
-                name="last_name"
+                id="apellido"
+                name="apellido"
                 type="text"
                 className="validate"
                 placeholder="Frost"

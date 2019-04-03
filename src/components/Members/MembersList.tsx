@@ -14,7 +14,7 @@ export default function MembersList() {
     getAllMembers(state, dispatch);
   });
 
-  const { Modal } = require('react-materialize');
+  //const { Modal } = require('react-materialize');
 
   return (
     <div className="container">
@@ -34,7 +34,7 @@ export default function MembersList() {
               {state.arr
                 ? state.arr.map((item: any) => {
                     if (!item) return {};
-                    let { id, nombre, rama, rama_id } = item as any;
+                    let { id, nombre, rama, rama_id } = item;
                     return (
                       <tr key={id}>
                         <td>{nombre}</td>
@@ -48,7 +48,7 @@ export default function MembersList() {
                               className="btn cyan waves-effect waves-light"
                               type="submit"
                               name="action"
-                              onClick={e => UpdateMember(e)}
+                              onClick={e => UpdateMember(item, state, dispatch)}
                             >
                               {resMsg.edit}
                               <i className="material-icons right">insert_comment</i>
