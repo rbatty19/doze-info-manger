@@ -79,6 +79,7 @@ export async function deleteMember(id: string, state: any, dispatch: any) {
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
+    cancelButtonText:  `${resMsg.cancel_1}`,
     confirmButtonText: `${resMsg.delete_1}?`
   })
 
@@ -118,7 +119,7 @@ export async function UpdateMember(item: any, state: any, dispatch: any) {
     showCloseButton: true,
     showCancelButton: true,
     confirmButtonText: `${resMsg.edit}`,
-    cancelButtonText: `${''}Cancelar`,    
+    cancelButtonText:  `${resMsg.cancel_1}`, 
     html: `  
     <form class="col s12" name="form" >
           <div class="row">
