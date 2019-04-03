@@ -112,6 +112,7 @@ function semestres() {
 export async function UpdateMember(item: any, state: any, dispatch: any) {
   const { apellido, nombre, rama_id, id_ciudadania, rama, semestre, email } = item;
 
+  
   const result = await Swal.fire({
     title: 'Formulario de Actualización',
     width: '1000px',
