@@ -3,7 +3,7 @@ import { AppContext } from '../AppContext';
 
 class Config {
   public app_config = {
-    backend_heroku_link: 'https://backed-doze-info-manager.herokuapp.com',
+    backend_heroku_link: 'https://backend-doze-info-manager.herokuapp.com',
   };
 }
 
