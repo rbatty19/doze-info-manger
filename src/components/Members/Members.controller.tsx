@@ -73,7 +73,7 @@ export async function getAllMembers(state: any, dispatch: any) {
 
 export async function deleteMember(id: string, state: any, dispatch: any) {
   const result = await Swal.fire({
-    title: `${resMsg.delete_1}?`,
+    title: `${resMsg.delete_1}`,
     text: "No se prodrá revertir!",
     type: 'warning',
     showCancelButton: true,
